@@ -1,6 +1,9 @@
 postgres:
 	docker run --name postgres15 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=kien6034 -d postgres:15-alpine
 
+startdb:
+	docker start postgres15
+
 createdb:
 	docker exec -it postgres15 createdb --username=root --owner=root simple_bank
 
@@ -15,5 +18,9 @@ migratedown:
 	
 sqlc: 
 	sqlc generate
+
+
+test:
+	go test -v -cover ./...
 
 .PHONY: createdb postgres dropdb d
